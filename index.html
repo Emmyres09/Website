@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emmanuel Ipede — Data Scientist & Analytics Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #0a0a0f;
+      --surface: #0f0f17;
+      --card: #13131e;
+      --card-hover: #181828;
+      --border: rgba(255,255,255,0.07);
+      --border-bright: rgba(255,255,255,0.14);
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.12);
+      --amber: #ffb830;
+      --amber-dim: rgba(255,184,48,0.10);
+      --violet: #a78bfa;
+      --violet-dim: rgba(167,139,250,0.12);
+      --green: #34d399;
+      --green-dim: rgba(52,211,153,0.10);
+      --rose: #fb7185;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --subtle: #94a3b8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .font-display { font-family: 'Syne', sans-serif; }
+    .font-mono    { font-family: 'DM Mono', monospace; }
+
+    /* ── GLOW EFFECTS ── */
+    .glow-cyan  { text-shadow: 0 0 24px rgba(0,229,255,0.6); }
+    .glow-amber { text-shadow: 0 0 24px rgba(255,184,48,0.6); }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      opacity: 0.18;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .nav-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 6px 16px;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--cyan); color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 100px 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--cyan);
+    }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 10vw, 7rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-role {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.2rem, 5vw, 3rem);
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+      line-height: 1.1;
+    }
+
+    .hero-desc {
+      max-width: 560px;
+      color: var(--subtle);
+      font-size: 16px;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    .hero-stats {
+      display: flex; gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      background: var(--cyan);
+      color: var(--ink);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,229,255,0.3);
+    }
+
+    .btn-secondary {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-bright);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--violet);
+      color: var(--violet);
+    }
+
+    /* ── TERMINAL TICKER ── */
+    .ticker-wrap {
+      position: absolute; bottom: 2rem; left: 0; right: 0;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,229,255,0.03);
+      padding: 10px 0;
+    }
+    .ticker {
+      display: flex; gap: 4rem;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+    .ticker-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--cyan); }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── SECTION ── */
+    section { position: relative; padding: 6rem 2rem; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--cyan);
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--subtle);
+      font-size: 16px;
+      max-width: 560px;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      margin: 2.5rem 0;
+    }
+    .filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--border-bright); color: var(--text); }
+    .filter-btn.active {
+      background: var(--cyan-dim);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* ── PROJECT GRID ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      gap: 1rem;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--card-accent, var(--cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+    }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-card.hidden { display: none; }
+
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--subtle);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card-pills {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+    }
+    .pill-cyan   { background: var(--cyan-dim);   color: var(--cyan);   border: 1px solid rgba(0,229,255,0.2); }
+    .pill-amber  { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(255,184,48,0.2); }
+    .pill-violet { background: var(--violet-dim); color: var(--violet); border: 1px solid rgba(167,139,250,0.2); }
+    .pill-green  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(52,211,153,0.2); }
+    .pill-rose   { background: rgba(251,113,133,0.1); color: var(--rose); border: 1px solid rgba(251,113,133,0.2); }
+
+    .card-links {
+      display: flex; gap: 0.75rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .card-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: color 0.2s;
+    }
+    .card-link:hover { color: var(--cyan); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border-bright);
+      max-width: 720px; width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-header {
+      padding: 2rem 2rem 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      position: sticky; top: 0;
+      background: var(--card);
+      z-index: 1;
+    }
+    .modal-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .modal-body { padding: 2rem; }
+    .modal-close {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: transparent; border: none;
+      color: var(--muted); cursor: pointer; font-size: 1.25rem;
+      transition: color 0.2s; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border); border-radius: 2px;
+    }
+    .modal-close:hover { color: var(--rose); border-color: var(--rose); }
+
+    .modal-section {
+      margin-bottom: 1.5rem;
+    }
+    .modal-section-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .modal-section-title::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: var(--border);
+    }
+    .modal-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .modal-kpi {
+      padding: 1rem;
+      background: var(--surface);
+      text-align: center;
+    }
+    .modal-kpi-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--cyan);
+    }
+    .modal-kpi-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 3px;
+    }
+    .modal-text {
+      color: var(--subtle);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .modal-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── SKILLS SECTION ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      margin-top: 3rem;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .skill-card:hover { border-color: var(--border-bright); }
+    .skill-card-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.75rem;
+    }
+    .skill-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .skill-bar-wrap {
+      height: 2px; background: var(--border);
+      border-radius: 1px; margin: 0.75rem 0 0.5rem;
+    }
+    .skill-bar {
+      height: 100%;
+      border-radius: 1px;
+      background: var(--cyan);
+      transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      border: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+    .contact-block {
+      padding: 2.5rem;
+      background: var(--card);
+    }
+    .contact-block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+    .contact-block-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .contact-block-value:hover { opacity: 0.7; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+
+    /* ── CURSOR GLOW ── */
+    #cursor-glow {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: left 0.1s, top 0.1s;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 80px 1.25rem 10rem; }
+      section { padding: 4rem 1.25rem; }
+      .hero-stats { gap: 2rem; }
+      .project-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .modal-kpi-grid { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .hero-name { font-size: 3rem !important; letter-spacing: -0.01em; line-height: 1.0; }
+      .hero-role { font-size: 1.3rem !important; }
+    }
+    @media (max-width: 400px) {
+      .hero-name { font-size: 2.5rem !important; }
+      .hero-role { font-size: 1.1rem !important; }
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+  </style>
+</head>
+<body class="grid-bg">
+
+  <!-- Cursor glow -->
+  <div id="cursor-glow"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <span class="nav-logo">ei:// portfolio</span>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Stack</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="https://github.com/emmyres09" target="_blank" rel="noopener">GitHub ↗</a>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="home">
+    <!-- orbs -->
+    <div class="orb" style="width:600px;height:600px;background:var(--cyan);top:-200px;right:-100px;"></div>
+    <div class="orb" style="width:400px;height:400px;background:var(--violet);bottom:100px;left:-150px;"></div>
+
+    <div style="max-width:1100px;width:100%;position:relative;z-index:1;">
+      <p class="hero-eyebrow fade-up">Available for opportunities</p>
+      <h1 class="hero-name fade-up delay-1">Emmanuel<br/>Ipede</h1>
+      <p class="hero-role fade-up delay-2">Data Scientist &<br/>Analytics Engineer</p>
+      <p class="hero-desc fade-up delay-3">
+        CS student with deep algorithmic foundations. I turn messy, high-volume datasets into 
+        precision-engineered dashboards, predictive models, and business intelligence platforms 
+        that drive real decisions — across 14+ end-to-end analytics projects.
+      </p>
+
+      <div class="hero-stats fade-up delay-4">
+        <div>
+          <div class="stat-num">14+</div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div>
+          <div class="stat-num">5</div>
+          <div class="stat-label">Tools Mastered</div>
+        </div>
+        <div>
+          <div class="stat-num">8</div>
+          <div class="stat-label">Industry Domains</div>
+        </div>
+      </div>
+
+      <div class="hero-actions fade-up delay-5">
+        <a class="btn-primary" href="#projects">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12H2M16 6l6 6-6 6"/></svg>
+          View Projects
+        </a>
+        <a class="btn-secondary" href="#contact">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+          Get In Touch
+        </a>
+      </div>
+    </div>
+
+    <!-- ticker -->
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker">
+        <!-- duplicated for seamless loop -->
+        <span class="ticker-item"><span class="ticker-dot"></span>Power BI</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Microsoft Excel</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Python · Pandas</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Jupyter Notebooks</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>DAX · M Query</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>SQL</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Data Modeling</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Machine Learning</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Statistical Analysis</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Business Intelligence</span>
+        <!-- dupe -->
+        <span class="ticker-item"><span class="ticker-dot"></span>Power BI</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Microsoft Excel</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Python · Pandas</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Jupyter Notebooks</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>DAX · M Query</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>SQL</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Data Modeling</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Machine Learning</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Statistical Analysis</span>
+        <span class="ticker-item"><span class="ticker-dot"></span>Business Intelligence</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROJECTS ─── -->
+  <section id="projects" style="padding-top:5rem;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p class="section-label">Data Projects</p>
+      <h2 class="section-title">14 End-to-End<br/>Analytics Builds</h2>
+      <p class="section-sub">From raw CSV to boardroom-ready insight — each project is a full analytics pipeline.</p>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="power-bi">Power BI</button>
+        <button class="filter-btn" data-filter="excel">Excel</button>
+        <button class="filter-btn" data-filter="python">Python</button>
+        <button class="filter-btn" data-filter="finance">Finance</button>
+        <button class="filter-btn" data-filter="health">Health</button>
+        <button class="filter-btn" data-filter="retail">Retail & E-comm</button>
+        <button class="filter-btn" data-filter="environment">Environment</button>
+      </div>
+
+      <!-- PROJECT GRID -->
+      <div class="project-grid" id="projectGrid">
+
+        <!-- 01 Amazon Sales -->
+        <div class="project-card" data-tags="power-bi retail"
+             style="--card-accent: var(--amber);"
+             data-index="0">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--amber-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+            <span class="card-num">01 / 14</span>
+          </div>
+          <div class="card-title">Amazon Sales Analytics</div>
+          <div class="card-desc">Power BI e-commerce performance dashboard analyzing product ratings, sales volume, and review engagement across Amazon's catalog using Quantum Analytics NG data.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-cyan">E-Commerce</span>
+            <span class="pill pill-violet">DAX · M Query</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/amazon-sales.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/amazon-sales" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 02 Airplane Crashes -->
+        <div class="project-card" data-tags="power-bi environment"
+             style="--card-accent: var(--rose);"
+             data-index="1">
+          <div class="card-header">
+            <div class="card-icon" style="background:rgba(251,113,133,0.1);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </div>
+            <span class="card-num">02 / 14</span>
+          </div>
+          <div class="card-title">Airplane Crashes & Fatalities</div>
+          <div class="card-desc">Power BI global aviation safety analysis tracking crash frequency, operator risk profiles, and fatality rates by aircraft type — sliced across decade, geography, and operator.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-rose">Safety Analytics</span>
+            <span class="pill pill-violet">Time-Series</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/Airplane-crashes.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/airplane-crashes" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 03 Car Insurance -->
+        <div class="project-card" data-tags="power-bi finance"
+             style="--card-accent: var(--violet);"
+             data-index="2">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--violet-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <span class="card-num">03 / 14</span>
+          </div>
+          <div class="card-title">Car Insurance Claims</div>
+          <div class="card-desc">Power BI risk intelligence platform analyzing claim frequency, amounts, and risk factors across policy demographics — uncovering patterns that drive pricing and underwriting decisions.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-violet">Insurance · Risk</span>
+            <span class="pill pill-green">DAX Measures</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/car-insurance.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/car-insurance" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 04 Digital Marketing -->
+        <div class="project-card" data-tags="power-bi retail"
+             style="--card-accent: var(--green);"
+             data-index="3">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--green-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <span class="card-num">04 / 14</span>
+          </div>
+          <div class="card-title">Digital Marketing ROI</div>
+          <div class="card-desc">Power BI campaign analytics platform tracking ROMI, CPL, CPC, CTR, CAC, and AOV across multiple campaign categories — built to surface conversion efficiency and channel attribution.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-green">Marketing Analytics</span>
+            <span class="pill pill-cyan">ROMI · CTR · CAC</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/digital-marketing.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/digital-marketing" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 05 GHG Emissions -->
+        <div class="project-card" data-tags="excel environment"
+             style="--card-accent: var(--green);"
+             data-index="4">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--green-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="card-num">05 / 14</span>
+          </div>
+          <div class="card-title">Greenhouse Gas Emissions</div>
+          <div class="card-desc">Excel-based environmental analytics tracking GHG emissions across NAICS industry classifications — revealing which sectors drive the most carbon output by revenue intensity.</div>
+          <div class="card-pills">
+            <span class="pill pill-green">Excel</span>
+            <span class="pill pill-cyan">Environmental</span>
+            <span class="pill pill-violet">NAICS · Industry</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/ghg-emissions.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/ghg-emissions" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 06 Global Debt -->
+        <div class="project-card" data-tags="power-bi finance"
+             style="--card-accent: var(--rose);"
+             data-index="5">
+          <div class="card-header">
+            <div class="card-icon" style="background:rgba(251,113,133,0.1);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <span class="card-num">06 / 14</span>
+          </div>
+          <div class="card-title">Global Debt Analytics</div>
+          <div class="card-desc">Power BI macroeconomic platform analyzing central government, general government, household, corporate, and private debt across global economies — an IMF-scale visual intelligence tool.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-rose">Macroeconomics</span>
+            <span class="pill pill-cyan">Global · Multi-Country</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/global-debt.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/global-debt" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 07 Health Insurance -->
+        <div class="project-card" data-tags="excel health finance"
+             style="--card-accent: var(--cyan);"
+             data-index="6">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--cyan-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <span class="card-num">07 / 14</span>
+          </div>
+          <div class="card-title">Health Insurance Coverage</div>
+          <div class="card-desc">Excel analytics comparing health coverage metrics across all 50 US states plus DC, with Medicaid expansion impact analysis via pivot tables and interactive slicers.</div>
+          <div class="card-pills">
+            <span class="pill pill-green">Excel</span>
+            <span class="pill pill-cyan">Healthcare Policy</span>
+            <span class="pill pill-violet">Medicaid · US States</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/health-insurance.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/health-insurance" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 08 Hotel Bookings -->
+        <div class="project-card" data-tags="power-bi retail"
+             style="--card-accent: var(--amber);"
+             data-index="7">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--amber-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <span class="card-num">08 / 14</span>
+          </div>
+          <div class="card-title">Hotel Bookings Analytics</div>
+          <div class="card-desc">Power BI hospitality performance dashboard tracking ADR, average night stays, total customers, and lead time — segmentable by customer type, deposit type, and arrival period.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-cyan">Hospitality</span>
+            <span class="pill pill-green">ADR · Lead Time</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/hotel-bookings.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/hotel-bookings" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 09 Investment Preference -->
+        <div class="project-card" data-tags="power-bi finance"
+             style="--card-accent: var(--violet);"
+             data-index="8">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--violet-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <span class="card-num">09 / 14</span>
+          </div>
+          <div class="card-title">Investment Preference</div>
+          <div class="card-desc">Power BI behavioral finance dashboard analyzing how different investor profiles select their investment vehicles — exposing preference patterns by age, income, and risk appetite.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-violet">Behavioral Finance</span>
+            <span class="pill pill-rose">Investor Profiling</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/investment-preference.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/investment-preference" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 10 Mental Health Trends -->
+        <div class="project-card" data-tags="power-bi health"
+             style="--card-accent: var(--cyan);"
+             data-index="9">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--cyan-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <span class="card-num">10 / 14</span>
+          </div>
+          <div class="card-title">Global Mental Health Trends</div>
+          <div class="card-desc">Power BI global public health platform tracking anxiety, depression, bipolar disorder, schizophrenia, and substance use prevalence across populations worldwide by gender and country.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-cyan">Public Health</span>
+            <span class="pill pill-violet">Global Epidemiology</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/mental-health-trends.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/mental-health-trends" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 11 Pizza Analysis (Python) -->
+        <div class="project-card" data-tags="python retail"
+             style="--card-accent: var(--amber);"
+             data-index="10">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--amber-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <span class="card-num">11 / 14</span>
+          </div>
+          <div class="card-title">Pizza Sales — Python Analysis</div>
+          <div class="card-desc">Full Python/Jupyter Notebook analysis of pizza restaurant sales data — covering EDA, sales trend decomposition, bestselling categories, and peak-hour revenue analytics using Pandas and Matplotlib.</div>
+          <div class="card-pills">
+            <span class="pill pill-cyan">Python</span>
+            <span class="pill pill-violet">Pandas · Matplotlib</span>
+            <span class="pill pill-amber">Jupyter Notebook</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="https://github.com/emmyres09/pizza-analysis" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub / Notebook
+            </a>
+          </div>
+        </div>
+
+        <!-- 12 Retail Sales -->
+        <div class="project-card" data-tags="excel retail"
+             style="--card-accent: var(--green);"
+             data-index="11">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--green-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M5 12H3l9-9 9 9h-2M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6h6v6"/></svg>
+            </div>
+            <span class="card-num">12 / 14</span>
+          </div>
+          <div class="card-title">Retail Sales Dashboard</div>
+          <div class="card-desc">Excel-based retail performance dashboard delivering interactive sales totals, average values, and product-level metrics via pivot tables and slicers — segmented by customer profile and category.</div>
+          <div class="card-pills">
+            <span class="pill pill-green">Excel</span>
+            <span class="pill pill-cyan">Retail Analytics</span>
+            <span class="pill pill-violet">Pivot Tables</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/retail-sales.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/retail-sales" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 13 Supply Chain -->
+        <div class="project-card" data-tags="excel retail"
+             style="--card-accent: var(--violet);"
+             data-index="12">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--violet-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <span class="card-num">13 / 14</span>
+          </div>
+          <div class="card-title">Supply Chain Performance</div>
+          <div class="card-desc">Excel supply chain analytics covering delivery performance, inventory efficiency, and customer satisfaction across product types and demographic segments — built for ops decision-making.</div>
+          <div class="card-pills">
+            <span class="pill pill-green">Excel</span>
+            <span class="pill pill-violet">Operations</span>
+            <span class="pill pill-cyan">Inventory · Delivery</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/supply-chain.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/supply-chain" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 14 TATA Online Retail -->
+        <div class="project-card" data-tags="power-bi retail finance"
+             style="--card-accent: var(--cyan);"
+             data-index="13">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--cyan-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <span class="card-num">14 / 14</span>
+          </div>
+          <div class="card-title">TATA Online Retail</div>
+          <div class="card-desc">Executive-level Power BI case study simulating a real retail analytics engagement for TATA — from raw order data to a commercial-grade BI model with KPI tracking, country-level analysis, and revenue forecasting.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-cyan">Enterprise Retail</span>
+            <span class="pill pill-violet">Revenue Forecasting</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/tata-online-retail.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/tata-online-retail" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 15 US International Flights (Bonus) -->
+        <div class="project-card" data-tags="power-bi environment"
+             style="--card-accent: var(--amber);"
+             data-index="14">
+          <div class="card-header">
+            <div class="card-icon" style="background:var(--amber-dim);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </div>
+            <span class="card-num">Bonus</span>
+          </div>
+          <div class="card-title">U.S. International Flights</div>
+          <div class="card-desc">Power BI aviation network analytics tracking carriers, foreign airports, total flights, and usage patterns — with triple-slicer filtering by Year, Month, and Carrier for deep route-level analysis.</div>
+          <div class="card-pills">
+            <span class="pill pill-amber">Power BI</span>
+            <span class="pill pill-cyan">Aviation Network</span>
+            <span class="pill pill-rose">US Aviation Data</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/us-international-flights.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/us-flights" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 16 Women Clothing -->
+        <div class="project-card" data-tags="excel retail"
+             style="--card-accent: var(--rose);"
+             data-index="15">
+          <div class="card-header">
+            <div class="card-icon" style="background:rgba(251,113,133,0.1);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            </div>
+            <span class="card-num">Bonus</span>
+          </div>
+          <div class="card-title">Women's Clothing E-Commerce</div>
+          <div class="card-desc">Excel dashboard dissecting women's fashion e-commerce across age categories, clothing divisions (casual, formal, sportswear), and departments — tracking revenue drivers and size-level performance.</div>
+          <div class="card-pills">
+            <span class="pill pill-green">Excel</span>
+            <span class="pill pill-rose">Fashion Analytics</span>
+            <span class="pill pill-violet">Segment Analysis</span>
+          </div>
+          <div class="card-links">
+            <a class="card-link" href="HTML/women-clothing.html" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Case Study
+            </a>
+            <a class="card-link" href="https://github.com/emmyres09/women-clothing" target="_blank">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /project-grid -->
+
+      <!-- Empty state -->
+      <div id="emptyState" style="display:none; text-align:center; padding:4rem 2rem;">
+        <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);">No projects match this filter.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section id="skills" style="background:var(--surface);">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p class="section-label">Technical Stack</p>
+      <h2 class="section-title">Tools, Languages<br/>&amp; Methodologies</h2>
+      <p class="section-sub">A rigorous CS foundation backing every data decision — from algorithm theory to production dashboards.</p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-label">Visualization</div>
+          <div class="skill-card-title">Power BI</div>
+          <div style="font-size:12px;color:var(--muted);">DAX, M Query, Data Modeling, Calculated Measures, Interactive Slicers</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:0%" data-width="92%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-label">Spreadsheet Analytics</div>
+          <div class="skill-card-title">Microsoft Excel</div>
+          <div style="font-size:12px;color:var(--muted);">Pivot Tables, Advanced Slicers, Lookup Functions, Dynamic Dashboards</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:0%" data-width="88%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-label">Programming</div>
+          <div class="skill-card-title">Python</div>
+          <div style="font-size:12px;color:var(--muted);">Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Jupyter</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:0%" data-width="80%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-label">Data Query</div>
+          <div class="skill-card-title">SQL</div>
+          <div style="font-size:12px;color:var(--muted);">Joins, Aggregations, CTEs, Window Functions, Subqueries</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:0%" data-width="78%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-label">Machine Learning</div>
+          <div class="skill-card-title">Predictive Modeling</div>
+          <div style="font-size:12px;color:var(--muted);">Regression, Classification, Clustering, Feature Engineering</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:0%" data-width="74%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-label">CS Foundation</div>
+          <div class="skill-card-title">Algorithms & DSA</div>
+          <div style="font-size:12px;color:var(--muted);">Data Structures, Complexity Analysis, CS Theory, Problem Solving</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:0%" data-width="85%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-label">Statistical Methods</div>
+          <div class="skill-card-title">Statistics & EDA</div>
+          <div style="font-size:12px;color:var(--muted);">Hypothesis Testing, Distributions, Correlation, Exploratory Analysis</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:0%" data-width="82%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-label">Domain Coverage</div>
+          <div class="skill-card-title">Industry Breadth</div>
+          <div style="font-size:12px;color:var(--muted);">Finance, Health, Retail, E-Commerce, Aviation, Environment, Logistics</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" data-width="90%" style="width:0%;background:var(--amber);"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section id="about">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" class="about-grid">
+      <div>
+        <p class="section-label">About</p>
+        <h2 class="section-title">Rigorous by<br/>Training. Sharp<br/>by Practice.</h2>
+      </div>
+      <div>
+        <p style="color:var(--subtle);font-size:16px;line-height:1.85;margin-bottom:1.5rem;">
+          I'm Emmanuel Ipede — a Computer Science student whose analytical toolkit is built on a foundation of algorithmic thinking and mathematical rigor. My CS program doesn't just teach me to code; it trains me to decompose complex problems, model systems, and reason precisely about data.
+        </p>
+        <p style="color:var(--subtle);font-size:16px;line-height:1.85;margin-bottom:1.5rem;">
+          That foundation powers 14+ end-to-end analytics projects spanning finance, healthcare, retail, aviation, and environmental science — all built using Power BI, Excel, and Python as precision instruments, not shortcuts.
+        </p>
+        <p style="color:var(--subtle);font-size:16px;line-height:1.85;margin-bottom:2rem;">
+          I'm open to internships, freelance analytics engagements, and collaborative projects where data can drive a genuine decision.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <span class="pill pill-cyan" style="padding:6px 14px;font-size:11px;">Power BI</span>
+          <span class="pill pill-green" style="padding:6px 14px;font-size:11px;">Python</span>
+          <span class="pill pill-violet" style="padding:6px 14px;font-size:11px;">Data Modeling</span>
+          <span class="pill pill-amber" style="padding:6px 14px;font-size:11px;">SQL</span>
+          <span class="pill pill-rose" style="padding:6px 14px;font-size:11px;">Statistics</span>
+          <span class="pill pill-cyan" style="padding:6px 14px;font-size:11px;">Excel Analytics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section id="contact" style="background:var(--surface);">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Let's Work<br/>Together</h2>
+      <p class="section-sub">Open to analytics roles, data consulting, internships, and collaborations.</p>
+
+      <div class="contact-grid">
+        <div class="contact-block">
+          <div class="contact-block-label">Email</div>
+          <a class="contact-block-value" href="mailto:ipedeemmanuel@gmail.com">ipedeemmanuel@gmail.com</a>
+
+        </div>
+        <div class="contact-block">
+          <div class="contact-block-label">GitHub</div>
+          <a class="contact-block-value" href="https://github.com/emmyres09" target="_blank">github.com/emmyres09</a>
+
+        </div>
+        <div class="contact-block">
+          <div class="contact-block-label">LinkedIn</div>
+          <a class="contact-block-value" href="https://linkedin.com/in/emmanuel-ipede" target="_blank">linkedin.com/in/emmanuel-ipede</a>
+
+        </div>
+        <div class="contact-block">
+          <div class="contact-block-label">Based In</div>
+          <div class="contact-block-value" style="cursor:default;">Nigeria 🇳🇬 · Remote-Ready</div>
+          <div style="margin-top:0.75rem;font-size:13px;color:var(--muted);">Available for global remote roles</div>
+        </div>
+      </div>
+
+      <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);">© 2026 Emmanuel Ipede · Built with precision.</span>
+        <div style="display:flex;gap:1.5rem;">
+          <a href="https://github.com/emmyres09" target="_blank" style="color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">GitHub</a>
+          <a href="https://linkedin.com/in/emmanuel-ipede" target="_blank" style="color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">LinkedIn</a>
+          <a href="#home" style="color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Back to Top ↑</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── JAVASCRIPT ─── -->
+  <script>
+    // ── Cursor Glow ──
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+
+    // ── Filter Logic ──
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-card');
+    const emptyState = document.getElementById('emptyState');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        let visible = 0;
+
+        cards.forEach(card => {
+          const tags = card.dataset.tags || '';
+          const show = filter === 'all' || tags.includes(filter);
+          if (show) {
+            card.classList.remove('hidden');
+            visible++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        emptyState.style.display = visible === 0 ? 'block' : 'none';
+      });
+    });
+
+    // ── Skill Bar Animation (IntersectionObserver) ──
+    const skillBars = document.querySelectorAll('.skill-bar');
+    const barObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          bar.style.width = bar.dataset.width;
+          barObserver.unobserve(bar);
+        }
+      });
+    }, { threshold: 0.3 });
+    skillBars.forEach(bar => barObserver.observe(bar));
+
+    // ── About section responsive ──
+    const aboutGrid = document.querySelector('.about-grid');
+    function checkAboutGrid() {
+      if (window.innerWidth < 768) {
+        aboutGrid.style.gridTemplateColumns = '1fr';
+        aboutGrid.style.gap = '2rem';
+      } else {
+        aboutGrid.style.gridTemplateColumns = '1fr 1fr';
+        aboutGrid.style.gap = '4rem';
+      }
+    }
+    checkAboutGrid();
+    window.addEventListener('resize', checkAboutGrid);
+
+    // ── Staggered card entrance ──
+    const cardObserver = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '0';
+          entry.target.style.transform = 'translateY(20px)';
+          entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, (parseInt(entry.target.dataset.index || 0) % 4) * 80);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    cards.forEach(card => cardObserver.observe(card));
+
+    // ── Active nav link on scroll ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current
+          ? 'var(--cyan)' : '';
+      });
+    });
+  </script>
+
+</body>
+</html>
