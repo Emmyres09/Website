@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Airplane Crashes and Fatalities | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+    header { background: #0b3c5d; color: #fff; padding: 20px; }
+    header h1 { margin: 0; }
+    nav { background: #eee; padding: 10px 20px; }
+    nav a { margin-right: 15px; color: #0b3c5d; text-decoration: none; font-weight: bold; }
+    main { max-width: 900px; margin: 20px auto; padding: 0 15px 40px; }
+    h2 { color: #0b3c5d; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+    ul { padding-left: 18px; }
+    .kpi-list li { margin-bottom: 4px; }
+    img { max-width: 100%; border: 1px solid #ddd; border-radius: 4px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Airplane Crashes and Fatalities</h1>
+  <p>Power BI analysis of global airplane crash data.</p>
+</header>
+
+<nav>
+  <a href="index.html">Home </a>
+  <a href="Project.html">Projects</a>
+</nav>
+
+<main>
+
+  <section>
+    <h2>Overview</h2>
+    <p>
+      This project analyzes an “Airplane Crashes and Fatalities” dataset to understand where and how fatal airplane incidents occur around the world. 
+      The dashboard focuses on locations, flight routes, aircraft types, and operators, with interactive filters that allow users to explore trends over time.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data & Tools</h2>
+    <ul>
+      <li><strong>Data source:</strong> Quantum Analytics NG </a></li>
+      <li><strong>Tools:</strong> Power BI for data cleaning, modeling, and visualization.</li>
+      <li><strong>Key fields:</strong> Date (Year, Month), Location, Operator, Aircraft type, Number aboard, Fatalities, Ground fatalities.</li>
+    </ul>
+    <!-- Replace the Kaggle link above with the exact dataset URL you used -->
+  </section>
+
+  <section>
+    <h2>Dashboard Design</h2>
+    <p>
+      The main Power BI dashboard uses slicers to let users filter crash data by:
+    </p>
+    <ul>
+      <li>Year</li>
+      <li>Month</li>
+      <li>Aircraft type</li>
+      <li>Operator</li>
+    </ul>
+    <p>
+      These filters allow stakeholders to drill down into specific time periods, plane types, or operators and see how fatalities and crashes vary under different conditions.
+    </p>
+
+    <p><em>Dashboard screenshot:</em></p>
+    <img src="assets/images/Airplane%20Crashes%20and%20Fatalities.png" alt="Airplane Crashes Power BI Dashboard">
+    <!-- Save your screenshot as airplane-dashboard.png and place it in assets/images/ -->
+  </section>
+
+  <section>
+    <h2>Key KPIs</h2>
+    <p>The dashboard highlights several KPIs to summarize the impact of crashes:</p>
+    <ul class="kpi-list">
+      <li><strong>Ground Fatalities:</strong> Total number of people who died on the ground during crashes.</li>
+      <li><strong>Number of Operators:</strong> Count of unique airlines/operators in the dataset.</li>
+      <li><strong>Number of Routes:</strong> Count of distinct flight routes in the data.</li>
+      <li><strong>Total Aboard:</strong> Total number of passengers and crew aboard across all recorded flights.</li>
+      <li><strong>Total Fatalities:</strong> Total number of fatalities both on board and on the ground.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Key Insights</h2>
+    <p>
+      The analysis surfaces several important patterns:
+    </p>
+    <ul>
+      <li><strong>Top 5 locations by fatalities:</strong> Identified locations with the highest number of fatalities, highlighting regions with the most severe incidents.</li>
+      <li><strong>High‑risk routes:</strong> Examined flight routes to see which routes experienced the highest fatalities and how frequently they occurred.</li>
+      <li><strong>Aircraft type impact:</strong> Highlighted the top 5 aircraft types by total fatalities, showing which models were involved in the deadliest incidents.</li>
+      <li><strong>Seasonal patterns:</strong> Visualized total fatalities by month and quarter to identify any seasonal spikes or patterns in crash severity.</li>
+      <li><strong>Operator patterns:</strong> Compared the number of operators by aircraft type to see which combinations appeared most frequently in crashes.</li>
+      <li><strong>Long‑term trends:</strong> Tracked total fatalities and total aboard by year to understand whether crash severity has increased or decreased over time.</li>
+    </ul>
+    <!-- As you refine the dashboard, you can replace these bullets with more specific numeric insights -->
+  </section>
+
+  <section>
+    <h2>Deliverables & Links</h2>
+    <ul>
+      <li><strong>Power BI file (.pbix):</strong> <a href="assets/files/Airplane-Crashes.pbix" download>Download File</a></li>
+      <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/AirplaneCrashesandFatalities_17774583019350/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li><strong>Dataset page:</strong> <a href="http://www.quantumanalyticsco.org" target="_blank">Quantum Analytics NG </a></li>
+      <li><strong>Video walkthrough:</strong> <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-first-activity-7297901219933544449-C-mj?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">LinkedIn video explanation</a></li>
+    </ul>
+    <!-- Replace YOUR-LINKEDIN-POST-LINK with the actual post URL for your video -->
+  </section>
+
+</main>
+
+</body>
+</html>
+

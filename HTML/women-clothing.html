@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Women Clothing E-Commerce | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #fdf2f8;
+      --border: #fbcfe8;
+      --accent: #be185d;
+      --accent-soft: #fce7f3;
+      --text-main: #881337;
+      --text-muted: #be185d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #fce7f3, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #f9a8d4;
+      color: #9d174d;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #831843;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #fdf2f8;
+      border: 1px solid #fbcfe8;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: var(--text-muted);
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(236, 72, 153, 0.15);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #fbcfe8;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #fbcfe8;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #fbcfe8;
+      margin-right: 6px;
+      color: var(--text-muted);
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Women Clothing E-Commerce – Sales Analytics</h1>
+      <p class="hero-sub">
+        Excel analysis of women's clothing e-commerce performance using Quantum Analytics NG data, 
+        revealing patterns across age categories, divisions, and departments.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Fashion E-Commerce</span>
+        <span class="chip">Tool: Microsoft Excel</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        "Which age groups buy which clothing styles and why."
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-8th-activity-7297915826588807169-6smh?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch video</a>
+      </div>
+     
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Women Clothing E-Commerce</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          E-commerce performance by customer age, clothing division, and department.
+        </p>
+        <p>
+          This Excel dashboard analyzes women's clothing e-commerce sales data from Quantum Analytics NG, breaking down performance across age categories, clothing divisions (casual, formal, sportswear, etc.), and departments (tops, bottoms, dresses, accessories). 
+          Using pivot tables, slicers, and dynamic charts, the analysis reveals which customer segments drive sales in specific clothing categories.
+        </p>
+        <p>
+          Fashion retailers can use these insights to optimize inventory allocation, target marketing campaigns by age group, and develop product strategies that match customer preferences across different clothing segments.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Microsoft Excel</span>
+          <span class="pill">E-Commerce Analytics</span>
+          <span class="pill">Fashion Retail</span>
+          <span class="pill">Customer Segmentation</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Women clothing sales dashboard (Excel)</div>
+        <img src="assets/images/women-clo.jpeg" alt="Women Clothing E-Commerce Excel Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+          
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Transaction-level e-commerce data organized for fashion analytics.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Women clothing e-commerce dataset with sales transactions, customer demographics, and product catalog.</li>
+          <li><strong>Grain:</strong> Order-line level records including age category, division name (casualwear, formalwear, sportswear), department name (tops, dresses, bottoms), quantities, sales value, and dates.</li>
+          <li><strong>Excel features:</strong> Multi-level pivot tables, interconnected slicers, conditional formatting for top/bottom performers, calculated fields for sales velocity and conversion rates.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Pivot Tables</span>
+          <span class="pill">Slicers</span>
+          <span class="pill">Conditional Formatting</span>
+          <span class="pill">Data Validation</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Interactive Slicers</h2>
+        <p class="section-subtitle">
+          Filter by customer age, clothing division, and department.
+        </p>
+        <p>
+          Three interconnected slicers provide comprehensive filtering:
+        </p>
+        <ul>
+          <li><strong>Age Category:</strong> Compare Gen Z, Millennials, Gen X, and Boomers to understand generational fashion preferences.</li>
+          <li><strong>Division Name:</strong> Analyze performance across casualwear, formalwear, sportswear, intimates, and outerwear divisions.</li>
+          <li><strong>Department Name:</strong> Drill into specific product types (tops, dresses, bottoms, outerwear, accessories, footwear).</li>
+        </ul>
+        <p>
+          Slicer combinations answer critical questions like "Do younger customers prefer sportswear tops while older customers favor dresses?"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      E-commerce metrics for sales velocity, customer behavior, and category performance.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total Sales</div>
+        <div class="kpi-desc">Revenue across selected filters and time periods.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Units Sold</div>
+        <div class="kpi-desc">Total clothing items purchased by segment.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Avg Order Value</div>
+        <div class="kpi-desc">Average $ per transaction by customer segment.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Conversion Rate</div>
+        <div class="kpi-desc">% of visitors completing purchases.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Age Coverage</div>
+        <div class="kpi-desc"># of age categories with meaningful sales.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Top Categories</div>
+        <div class="kpi-desc"># of divisions/departments driving 80% sales.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      Excel calculated fields with conditional formatting highlight top/bottom performers across all dimensions.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Age & Category Insights</h2>
+        <p class="section-subtitle">
+          Generational preferences across clothing divisions.
+        </p>
+        <ul>
+          <li><strong>Sales by age & division:</strong> Which generations drive sales in casualwear vs. formalwear vs. sportswear.</li>
+          <li><strong>Department winners by age:</strong> Age group preferences for tops vs. dresses vs. bottoms vs. accessories.</li>
+          <li><strong>Spend patterns:</strong> Average order values and purchase frequency by age category.</li>
+        </ul>
+        <p>
+          Reveals opportunities to tailor marketing and inventory by generation.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Division & Performance Insights</h2>
+        <p class="section-subtitle">
+          Which clothing categories perform across all ages.
+        </p>
+        <ul>
+          <li><strong>Division rankings:</strong> Revenue leaders across casual, formal, sportswear, and intimates divisions.</li>
+          <li><strong>Department cross-sell:</strong> Which combinations (tops + bottoms, dresses + accessories) drive highest AOV.</li>
+          <li><strong>Seasonal patterns:</strong> Time-based trends in division/department performance by age group.</li>
+        </ul>
+        <p>
+          Identifies inventory priorities and merchandising opportunities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Access the women clothing e-commerce analysis materials.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/Womenclothings/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Women Clothing E-Commerce dataset (proprietary retail data).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        LinkedIn demonstration of fashion e-commerce analytics:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-8th-activity-7297915826588807169-6smh?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+   
+  </section>
+
+</main>
+
+</body>
+</html>

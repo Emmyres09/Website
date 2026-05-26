@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Supply Chain Analysis | Emmanuel Ipede– Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f3f4f6;
+      --border: #d1d5db;
+      --accent: #7c3aed;
+      --accent-soft: #ede9fe;
+      --text-main: #1e1b4b;
+      --text-muted: #6b7280;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #ede9fe, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #ddd6fe;
+      color: #6d28d9;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #3730a3;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: #475569;
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(147, 51, 234, 0.15);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #e2e8f0;
+      margin-right: 6px;
+      color: #64748b;
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Supply Chain Analysis – Excel Dashboard</h1>
+      <p class="hero-sub">
+        Excel‑based supply chain performance analysis using Quantum Analytics NG data, 
+        tracking efficiency across product types and customer demographics.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Supply Chain</span>
+        <span class="chip">Tool: Microsoft Excel</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        "Optimizing delivery, inventory, and customer satisfaction through Excel analytics."
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-6th-activity-7297913272136003585-AMGE?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch video</a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Supply Chain Analysis</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          End‑to‑end supply chain performance by product and customer segments.
+        </p>
+        <p>
+          This Excel dashboard analyzes supply chain operations data from Quantum Analytics NG, focusing on delivery performance, inventory efficiency, and customer satisfaction across different product types and demographic segments. 
+          Using advanced pivot tables, slicers, and dynamic charts, the dashboard reveals bottlenecks, high‑performing segments, and optimization opportunities.
+        </p>
+        <p>
+          The analysis helps supply chain managers identify which products move fastest through which customer groups, optimize inventory allocation, and improve on‑time delivery rates through data‑driven decisions.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Microsoft Excel</span>
+          <span class="pill">Supply Chain</span>
+          <span class="pill">Pivot Tables</span>
+          <span class="pill">Slicers</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Supply chain performance dashboard (Excel)</div>
+        <img src="assets/images/supply-chain.jpeg" alt="Supply Chain Analysis Excel Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+          
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Operational data transformed for supply chain reporting.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Supply chain operations dataset with orders, deliveries, inventory, and customer details.</li>
+          <li><strong>Grain:</strong> Order‑line level records including product type, customer demographics, delivery dates, quantities, costs, and performance metrics.</li>
+          <li><strong>Excel features:</strong> Pivot tables for aggregation, slicers for interactivity, conditional formatting for exceptions, calculated fields for KPIs like on‑time delivery % and fill rates.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Data Cleaning</span>
+          <span class="pill">Pivot Tables</span>
+          <span class="pill">Dynamic Charts</span>
+          <span class="pill">Conditional Formatting</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Interactive Slicers</h2>
+        <p class="section-subtitle">
+          Filter supply chain performance by product and customer.
+        </p>
+        <p>
+          The dashboard uses Excel slicers connected across multiple pivot tables:
+        </p>
+        <ul>
+          <li><strong>Product Type:</strong> Compare performance across product categories (electronics, apparel, perishables, etc.) to identify fast/slow movers.</li>
+          <li><strong>Customer Demographic:</strong> Analyze delivery success and inventory efficiency by age group, location type, or purchase behavior segments.</li>
+        </ul>
+        <p>
+          Slicer combinations reveal critical insights like "Which customer segments experience delays with high‑value electronics?" or "Are perishables performing better for younger demographics?".
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Essential supply chain efficiency and customer satisfaction metrics.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">On-Time Delivery</div>
+        <div class="kpi-desc">% of orders delivered within promised timeframe.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Fill Rate</div>
+        <div class="kpi-desc">% of orders fulfilled completely from available stock.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Inventory Turnover</div>
+        <div class="kpi-desc">How quickly inventory converts to sales.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Avg Delivery Time</div>
+        <div class="kpi-desc">Average days from order to delivery.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Perfect Order %</div>
+        <div class="kpi-desc">% of orders delivered complete, on‑time, undamaged.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Customer Segments</div>
+        <div class="kpi-desc">Coverage across demographic segments analyzed.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      KPIs implemented as Excel calculated fields and pivot table measures with conditional formatting for quick issue identification.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Product Performance Insights</h2>
+        <p class="section-subtitle">
+          Which products flow efficiently through the supply chain.
+        </p>
+        <ul>
+          <li><strong>Delivery performance by product type:</strong> Identifies which categories consistently meet SLAs vs. chronic delays.</li>
+          <li><strong>Inventory efficiency by product:</strong> Shows stock turnover rates and fill rates by product category to optimize carrying costs.</li>
+          <li><strong>Cost per product type:</strong> Compares transportation, warehousing, and handling costs across product categories.</li>
+        </ul>
+        <p>
+          These insights guide inventory planning, carrier selection, and product prioritization decisions.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Customer Segment Insights</h2>
+        <p class="section-subtitle">
+          Service levels by demographic and buying behavior.
+        </p>
+        <ul>
+          <li><strong>Performance by customer demographic:</strong> Reveals which segments experience highest service levels vs. most delays.</li>
+          <li><strong>Product‑demographic fit:</strong> Shows which product types perform best for different customer groups (age, location, value).</li>
+          <li><strong>Priority customer analysis:</strong> Identifies high‑value segments needing premium service levels.</li>
+        </ul>
+        <p>
+          Enables targeted service improvements and capacity allocation by customer importance.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Access the Excel supply chain dashboard and supporting materials.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/SupplyChain_17785812980810/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Supply Chain dataset (proprietary training data for operational analysis).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        LinkedIn demonstration of the supply chain Excel analysis:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-6th-activity-7297913272136003585-AMGE?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+   
+  </section>
+
+</main>
+
+</body>
+</html>

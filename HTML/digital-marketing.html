@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Marketing Analytics | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f0fdf4;
+      --border: #bbf7d0;
+      --accent: #16a34a;
+      --accent-soft: #dcfce7;
+      --text-main: #14532d;
+      --text-muted: #166534;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #dcfce7, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #86efac;
+      color: #15803d;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #166534;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: var(--text-muted);
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(22, 163, 74, 0.15);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #bbf7d0;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #bbf7d0;
+      margin-right: 6px;
+      color: var(--text-muted);
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Digital Marketing – Campaign Performance Analytics</h1>
+      <p class="hero-sub">
+        Power BI-driven marketing ROI dashboard using Quantum Analytics NG data,
+        with slicers on Campaign Name and Category.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Marketing Analytics</span>
+        <span class="chip">Tool: Power BI</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        "Which campaigns deliver highest ROMI and where to optimize spend?"
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-11th-activity-7297931881101115392-vrix?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch overview</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Digital Marketing</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          Campaign profitability analysis sliced by name and category.
+        </p>
+        <p>
+          This Power BI project analyzes digital marketing campaigns from Quantum Analytics NG, tracking Total Revenue, Gross Profit/Loss, Conversion 1, Conversion 2, Average Revenue, ROMI, CPL, CPC, CTR, AOV, and CAC. Slicers enable filtering by Campaign Name and Category.
+        </p>
+        <p>
+          Marketing teams gain actionable insights for budget allocation, campaign optimization, and ROI improvement across all digital channels and campaign types.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Power BI</span>
+          <span class="pill">Marketing Analytics</span>
+          <span class="pill">ROMI Tracking</span>
+          <span class="pill">Campaign ROI</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Digital marketing dashboard (Power BI)</div>
+        <img src="assets/images/Digital%20Marketing.png" alt="Digital Marketing Power BI Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+          
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Campaign-level performance data with spend and conversion metrics.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Digital marketing dataset with campaign spend, conversions, revenue, and performance metrics.</li>
+          <li><strong>Grain:</strong> Campaign-level records including impressions, clicks, conversions, revenue attribution, and cost data.</li>
+          <li><strong>Power BI features:</strong> Slicers for Campaign Name and Category; DAX measures for ROMI, CPL, CPC, CTR, AOV, CAC calculations.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">DAX Measures</span>
+          <span class="pill">Campaign Slicers</span>
+          <span class="pill">ROI Analytics</span>
+          <span class="pill">Performance Metrics</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Slicer Setup</h2>
+        <p class="section-subtitle">
+          Interactive filtering by Campaign Name and Category.
+        </p>
+        <p>
+          Dual slicers enable precise analysis across individual campaigns and channel categories for comprehensive performance comparison.
+        </p>
+        <ul>
+          <li><strong>Campaign Name:</strong> Filter specific campaigns for detailed performance review.</li>
+          <li><strong>Category:</strong> Group by channel type (Search, Social, Display, Email, etc.).</li>
+          <li><strong>Cross-analysis:</strong> Compare campaign performance within and across categories.</li>
+        </ul>
+        <p>
+          Enables questions like "Which Google Ads campaigns outperform Facebook?" or "How does Email category ROMI compare to Paid Search?"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI section -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Complete campaign profitability and efficiency metrics.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total Revenue</div>
+        <div class="kpi-desc">Campaign-attributed revenue from selected filters.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Gross Profit/Loss</div>
+        <div class="kpi-desc">Revenue minus total campaign spend.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Conversion 1</div>
+        <div class="kpi-desc">Primary conversion count (leads, signups).</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Conversion 2</div>
+        <div class="kpi-desc">Secondary conversion count (sales, purchases).</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Average Revenue</div>
+        <div class="kpi-desc">Revenue per campaign in selection.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">ROMI</div>
+        <div class="kpi-desc">Return on marketing investment ratio.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">CPL</div>
+        <div class="kpi-desc">Cost per lead acquisition.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">CPC</div>
+        <div class="kpi-desc">Cost per click efficiency.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">CTR</div>
+        <div class="kpi-desc">Click-through rate performance.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">AOV</div>
+        <div class="kpi-desc">Average order value by campaign.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">CAC</div>
+        <div class="kpi-desc">Customer acquisition cost metric.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      All 11 KPIs calculated using Power BI DAX measures with category benchmarks.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">High-ROI Campaigns</h2>
+        <p class="section-subtitle">
+          Top performing campaigns by profitability metrics.
+        </p>
+        <ul>
+          <li><strong>ROMI leaders:</strong> Campaigns exceeding 400% return targets.</li>
+          <li><strong>Conversion drivers:</strong> Highest Conversion 1→2 rates.</li>
+          <li><strong>Efficiency winners:</strong> Best CPL/CPC in high-volume categories.</li>
+        </ul>
+        <p>
+          Prioritize budget increases for proven high-ROI performers.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Optimization Opportunities</h2>
+        <p class="section-subtitle">
+          Underperforming campaigns needing attention.
+        </p>
+        <ul>
+          <li><strong>Loss-making:</strong> Negative Gross Profit/Loss campaigns.</li>
+          <li><strong>High CPL:</strong> Costly lead generation requiring targeting fixes.</li>
+          <li><strong>Low CTR:</strong> Poor ad creative performance.</li>
+        </ul>
+        <p>
+          Focus optimization efforts on highest impact improvement areas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Access the complete Digital Marketing analytics platform.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Power BI file</span>
+       Complete <strong>.pbix</strong> marketing dashboard:
+        <a href="assets/files/Digital-Marketing.pbix" target="_blank">Download Power BI report</a>
+      </li>
+            <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/DigitalMarketing_17785809417620/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Digital Marketing dataset (Campaign Name, Category, Revenue, Conversions, Costs).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        Campaign ROI analysis and slicer demo:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-11th-activity-7297931881101115392-vrix?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+</body>
+</html>

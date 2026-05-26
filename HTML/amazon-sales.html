@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Amazon Sales | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f9fafb;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #374151;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: #4b5563;
+    }
+
+    /* Screenshot area – extra roomy */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #e5e7eb;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: #111827;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      margin-right: 6px;
+      color: #4b5563;
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Amazon Sales – Ratings & Engagement Analytics</h1>
+      <p class="hero-sub">
+        Power BI case study on Amazon product performance using Quantum Analytics NG data, 
+        focusing on user engagement, ratings, and how pricing relates to review activity.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: E‑commerce</span>
+        <span class="chip">Tool: Power BI</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        “Which products are loved, which are noticed, and which are ignored?”
+      </p>
+      <div class="hero-actions">
+       <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-3rd-activity-7297908606048374785-cF2b?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch video</a>
+      </div>
+     
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home </a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Amazon Sales</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + BIG DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          Understanding how customers interact with Amazon products across ratings, reviews, and pricing.
+        </p>
+        <p>
+          This project analyzes Amazon sales and product engagement data from Quantum Analytics NG. 
+          The dashboard is designed to answer questions such as which products attract the most attention, 
+          where average ratings are strongest, and how different price ranges relate to rating activity.
+        </p>
+        <p>
+          Using Power BI, the raw data is transformed into a clean model with interactive visuals that 
+          help stakeholders quickly see top products, highly rated items, and power users who leave the most reviews.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Power BI</span>
+          <span class="pill">E‑commerce Analytics</span>
+          <span class="pill">Ratings & Reviews</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Main dashboard view</div>
+        <img src="assets/images/Amazon%20Sales.png" alt="Amazon Sales Power BI Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+         
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Product‑level engagement data prepared for reporting.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Amazon product sales and engagement dataset.</li>
+          <li><strong>Grain:</strong> Product‑level records with details such as product name, category, price, ratings, reviews, and user information.</li>
+          <li><strong>Transformations:</strong> Cleaned missing or inconsistent rating values, standardized product and category names, and created calculated columns for price bands and engagement metrics.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Data Cleaning</span>
+          <span class="pill">Data Modeling</span>
+          <span class="pill">DAX Measures</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Interactive Slicers</h2>
+        <p class="section-subtitle">
+          Fast, intuitive filtering for non‑technical users.
+        </p>
+        <p>
+          The report uses focused slicers to explore performance:
+        </p>
+        <ul>
+          <li><strong>Product Name:</strong> Drill into a specific item to see its ratings, reviews, and engagement compared to others.</li>
+          <li><strong>Category:</strong> Compare groups of products to understand which categories deliver the most value.</li>
+        </ul>
+        <p>
+          By combining these slicers, users can move from a high‑level view of all products to a narrow analysis of one product or one category in just a few clicks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Metrics that summarize rating quality, engagement volume, and product coverage.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Average Rating</div>
+        <div class="kpi-desc">Overall average rating across all products in the selected context.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Max Rating</div>
+        <div class="kpi-desc">Highest rating observed for any product, useful for benchmarking top performers.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Rating</div>
+        <div class="kpi-desc">Sum of rating values across all rated products (e.g., stars aggregated).</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Ratings Count</div>
+        <div class="kpi-desc">Total number of rating entries recorded in the dataset.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Products</div>
+        <div class="kpi-desc">Number of distinct products included in the analysis.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Reviews</div>
+        <div class="kpi-desc">Total number of review entries, showing the volume of written feedback.</div>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <div class="kpi-label">Unique Users</div>
+        <div class="kpi-desc">Count of distinct users who interact through ratings or reviews, indicating how broad the engagement is.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      In Power BI, these KPIs are implemented as measures and displayed as prominent cards at the top of the report.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Product & Rating Insights</h2>
+        <p class="section-subtitle">
+          Which products stand out, and how users respond.
+        </p>
+        <ul>
+          <li><strong>Product by user engagement:</strong> Highlights products that generate the most interactions (ratings and reviews), showing what attracts customer attention.</li>
+          <li><strong>Average ratings & total reviews by product:</strong> Combines rating quality with review volume to identify products that are both well‑rated and widely discussed.</li>
+          <li><strong>Products with highest average ratings:</strong> Surfaces top‑rated products that may be candidates for promotion or recommendation.</li>
+        </ul>
+        <p>
+          These insights help distinguish products that are truly loved from those that receive attention but mixed feedback.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Price & User Behavior Insights</h2>
+        <p class="section-subtitle">
+          How pricing and users drive rating activity.
+        </p>
+        <ul>
+          <li><strong>Total ratings by actual vs. discounted price:</strong> Examines how rating activity varies with the original price and discount levels.</li>
+          <li><strong>Total ratings count by username:</strong> Identifies highly active reviewers who may act as power users or brand advocates.</li>
+          <li><strong>Total products by actual price:</strong> Shows how product assortment is distributed across price ranges (e.g., budget vs. premium items).</li>
+        </ul>
+        <p>
+          These views allow business stakeholders to see where engagement concentrates and how pricing may influence customer behavior.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Where to access the underlying report and related materials.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Power BI file</span>
+        Link to the <strong>.pbix</strong> file:
+        <a href="assets/files/Amazon-Sales.pbix" target="_blank">Download or view PBIX</a>
+      </li>
+      <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/AmazonSales_17785814319760/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+       <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Amazon dataset (used for training; underlying rows are not publicly shared).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        LinkedIn post where you explain this report:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-3rd-activity-7297908606048374785-cF2b?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+   

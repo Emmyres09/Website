@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotel Bookings Analytics | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f0fdf4;
+      --border: #bbf7d0;
+      --accent: #16a34a;
+      --accent-soft: #dcfce7;
+      --text-main: #14532d;
+      --text-muted: #166534;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #dcfce7, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #86efac;
+      color: #15803d;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #166534;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: var(--text-muted);
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(22, 163, 74, 0.15);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #bbf7d0;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #bbf7d0;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #bbf7d0;
+      margin-right: 6px;
+      color: var(--text-muted);
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Hotel Bookings Analytics – ADR & Availability</h1>
+      <p class="hero-sub">
+        Power BI-driven hotel performance dashboard using Quantum Analytics NG data,
+        with slicers on Customer Type, Deposit Type, Arrival Month, and Arrival Year.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Hospitality Analytics</span>
+        <span class="chip">Tool: Power BI</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        "How do room rates, stay length, and lead times translate into revenue opportunities?"
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-10th-activity-7297920947238440960-eURR?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch overview</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Hotel Bookings</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          ADR and stay metrics by customer type and deposit type with arrival-date slicers.
+        </p>
+        <p>
+          This Power BI project analyzes hotel bookings data from Quantum Analytics NG, focusing on Average Daily Rate (ADR), Average Nights, Total Customers, and Lead Time. Slicers enable segmentation by Customer Type, Deposit Type, Arrival Month, and Arrival Year for granular insights.
+        </p>
+        <p>
+          Revenue optimization, capacity planning, and demand forecasting are enabled for hotels, chains, and management companies. The visuals support scenario analysis and executive storytelling with clear KPI indicators.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Power BI</span>
+          <span class="pill">Hospitality Analytics</span>
+          <span class="pill">ADR & Availability</span>
+          <span class="pill">Lead Time Analysis</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Hotel bookings dashboard (Power BI)</div>
+        <img src="assets/images/Hotel%20Booking.png" alt="Hotel Bookings Power BI Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+  
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Booking-level data with guest and stay details.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Hotel bookings dataset, including arrival date, stay nights, ADR, lead time, customer type, and deposit type.</li>
+          <li><strong>Grain:</strong> Booking-level records with customer demographics, room type, source market, and booking channel.</li>
+          <li><strong>Power BI features:</strong> Slicers for Customer Type, Deposit Type, Arrival Date Month, Arrival Date Year; calculated measures for ADR, Nights, Lead Time; and drill-through dashboards.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">DAX Measures</span>
+          <span class="pill">Date Table</span>
+          <span class="pill">Slicers</span>
+          <span class="pill">Pareto & Segmentation</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Slicer Setup</h2>
+        <p class="section-subtitle">
+          Interactive filtering by key booking dimensions.
+        </p>
+        <p>
+          The slicers allow you to compare performance across customer types (e.g., Corporate, OTA, Walk-in) and deposit types (non-refundable, refundable), and to analyze trends by month and year of arrival.
+        </p>
+        <ul>
+          <li><strong>Customer Type:</strong> Filter by segments such as Corporate, LE, OTA, and Group.</li>
+          <li><strong>Deposit Type:</strong> Distinguish refundable vs non-refundable bookings.</li>
+          <li><strong>Arrival Month/Year:</strong> Time-based slicing for seasonal analysis.</li>
+        </ul>
+        <p>
+          This setup supports questions like "Which customer type drives ADR growth in peak season?" or "Do refundable bookings have longer lead times?"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI section -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Booking performance metrics for revenue optimization.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total ADR</div>
+        <div class="kpi-desc">Average daily rate across filtered bookings.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Average Nights</div>
+        <div class="kpi-desc">Average stay duration per booking.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Customers</div>
+        <div class="kpi-desc">Count of unique guests in the period.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Lead Time</div>
+        <div class="kpi-desc">Average days between booking date and arrival date.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Occupancy Insights</div>
+        <div class="kpi-desc">Capacity utilization trend by segment.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Deposit Mix</div>
+        <div class="kpi-desc">Share of refundable vs non-refundable bookings.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      KPIs are computed in Power BI using measures and a date table for consistent time intelligence.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">High-Impact Segments</h2>
+        <p class="section-subtitle">
+          Segments driving mixed performance.
+        </p>
+        <ul>
+          <li><strong>ADR leaders:</strong> Corporate bookings with higher ADR during peak months.</li>
+          <li><strong>Nights drivers:</strong> Groups and long-stay segments contributing to extended stays.</li>
+          <li><strong>Lead time patterns:</strong> Non-refundable deposits often show shorter lead times.</li>
+        </ul>
+        <p>
+          Insights help tailor rate strategies and promotional offers to optimize revenue.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Actionable Takeaways</h2>
+        <p class="section-subtitle">
+          Practical strategies derived from the analysis.
+        </p>
+        <ul>
+          <li><strong>Dynamic pricing:</strong> Adjust ADR by Customer Type and Deposit Type during high-demand months.</li>
+          <li><strong>Promotions:</strong> Promote refundable bookings in off-peak months to balance occupancy.</li>
+          <li><strong>Lead-time optimization:</strong> Align marketing campaigns with expected lead-time windows per segment.</li>
+        </ul>
+        <p>
+          Use these takeaways to inform pricing, inventory controls, and marketing calendars.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Access the Hotel Bookings analytics materials.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Power BI file</span>
+        Complete <strong>.pbix</strong> Power BI report:
+        <a href="assets/files/Hotel-Booking.pbix" target="_blank">Download Power BI report</a>
+      </li>
+       <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/HotelBooking_17773778971570/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Hotel Bookings dataset (ADR, Nights, Lead Time, Customer Type, Deposit Type, Arrival date).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        Tutorial on ADR optimization by segment:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-10th-activity-7297920947238440960-eURR?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+</body>
+</html>

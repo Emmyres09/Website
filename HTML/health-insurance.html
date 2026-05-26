@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Insurance Analytics | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f0f9ff;
+      --border: #bae6fd7;
+      --accent: #0891b2;
+      --accent-soft: #e0f2fe;
+      --text-main: #0c4a6e;
+      --text-muted: #0e7490;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #e0f2fe, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #7dd3fc;
+      color: #0369a1;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #0e7490;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: var(--text-muted);
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(8, 145, 178, 0.15);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #bae6fd7;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #bae6fd7;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #bae6fd7;
+      margin-right: 6px;
+      color: var(--text-muted);
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Health Insurance – State Coverage Analysis</h1>
+      <p class="hero-sub">
+        Excel-based health insurance analytics using Quantum Analytics NG data,
+        sliced by State and State Medicaid Expansion status.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Healthcare Analytics</span>
+        <span class="chip">Tool: Microsoft Excel</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        "How does Medicaid expansion impact coverage rates across states?"
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-12th-activity-7297932388339269632-MgDf?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch overview</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Health Insurance</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          State-by-state health insurance coverage analysis by Medicaid expansion.
+        </p>
+        <p>
+          This Excel dashboard analyzes health insurance data from Quantum Analytics NG, comparing coverage metrics between states with and without Medicaid expansion. Pivot tables and slicers enable granular analysis across all 50 states and DC.
+        </p>
+        <p>
+          Healthcare policymakers, insurers, and analysts can benchmark coverage rates, identify expansion impact gaps, and understand state-level disparities in insurance access and affordability.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Microsoft Excel</span>
+          <span class="pill">Healthcare Analytics</span>
+          <span class="pill">Medicaid Expansion</span>
+          <span class="pill">State Benchmarking</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Health insurance coverage dashboard (Excel)</div>
+        <img src="assets/images/Health-insu.jpeg" alt="Health Insurance Excel Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+         
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          State-level health insurance coverage and Medicaid data.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Comprehensive health insurance dataset with state-level enrollment, premiums, claims, and Medicaid expansion status.</li>
+          <li><strong>Grain:</strong> State-level records including insured population %, Medicaid enrollment, private insurance rates, and expansion policy status.</li>
+          <li><strong>Excel features:</strong> State slicer, Medicaid Expansion slicer, pivot tables with calculated fields, conditional formatting, and dynamic charts.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Pivot Tables</span>
+          <span class="pill">Slicers</span>
+          <span class="pill">State Analysis</span>
+          <span class="pill">Policy Impact</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Slicer Setup</h2>
+        <p class="section-subtitle">
+          State and Medicaid Expansion filtering controls.
+        </p>
+        <p>
+          Dual slicers enable precise comparison between expansion and non-expansion states at national, regional, and individual state levels.
+        </p>
+        <ul>
+          <li><strong>State:</strong> Filter all 50 states + DC for granular geographic analysis.</li>
+          <li><strong>Medicaid Expansion:</strong> Compare 40 expansion states vs 10 non-expansion states.</li>
+          <li><strong>Cross-filtering:</strong> Regional analysis (Northeast, South, Midwest, West) by expansion status.</li>
+        </ul>
+        <p>
+          Answers questions like "California vs Texas coverage rates" or "Do expansion states have higher insured rates?"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI section -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Health insurance coverage and access metrics by state policy.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Insured Population %</div>
+        <div class="kpi-desc">Uninsured rate by state and expansion status.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Medicaid Enrollment</div>
+        <div class="kpi-desc">Total Medicaid beneficiaries per state.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Private Coverage</div>
+        <div class="kpi-desc">% population with private insurance.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Premium Affordability</div>
+        <div class="kpi-desc">Average premium as % of median income.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Claims per Enrollee</div>
+        <div class="kpi-desc">Healthcare utilization by insurance type.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Expansion Impact</div>
+        <div class="kpi-desc">% coverage improvement post-expansion.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      Excel calculated fields and pivot table measures with conditional formatting for policy impact.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Expansion Success States</h2>
+        <p class="section-subtitle">
+          States showing strongest coverage improvements.
+        </p>
+        <ul>
+          <li><strong>Best performers:</strong> Highest % point drops in uninsured rates post-expansion.</li>
+          <li><strong>High Medicaid growth:</strong> Largest enrollment increases in expansion states.</li>
+          <li><strong>Affordability wins:</strong> States with lowest premium-to-income ratios.</li>
+        </ul>
+        <p>
+          Benchmark states for successful policy implementation.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Coverage Gaps</h2>
+        <p class="section-subtitle">
+          States needing policy attention.
+        </p>
+        <ul>
+          <li><strong>Highest uninsured:</strong> Non-expansion states with persistent coverage gaps.</li>
+          <li><strong>Premium burden:</strong> States where insurance costs exceed affordability thresholds.</li>
+          <li><strong>Low utilization:</strong> States with high coverage but low healthcare access.</li>
+        </ul>
+        <p>
+          Priority areas for federal and state intervention.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Access the complete Health Insurance state analysis platform.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Excel file</span>
+        Complete <strong>.xlsx</strong> health insurance analysis workbook:
+        <a href="LINK-TO-HEALTH-EXCEL" target="_blank">Download Excel dashboard</a>
+      </li>
+            <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/HealthInsurance_17777532772670/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Health Insurance dataset (State coverage, Medicaid expansion, premiums, enrollment).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        State slicer demo and Medicaid expansion analysis:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-12th-activity-7297932388339269632-MgDf?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+</body>
+</html>

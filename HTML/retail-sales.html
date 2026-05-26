@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Retail Sales | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f9fafb;
+      --border: #e5e7eb;
+      --accent: #16a34a;
+      --accent-soft: #ecfdf3;
+      --text-main: #0f172a;
+      --text-muted: #6b7280;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #ecfdf3, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #374151;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: #4b5563;
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #e5e7eb;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: #111827;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      margin-right: 6px;
+      color: #4b5563;
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Retail Sales – Excel Reporting Dashboard</h1>
+      <p class="hero-sub">
+        Excel‑based retail analytics project using Quantum Analytics NG data, 
+        focused on sales performance across age groups, gender, and product categories.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Retail</span>
+        <span class="chip">Tool: Microsoft Excel</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        “Turning simple spreadsheets into clear, decision‑ready sales insights.”
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-4th-activity-7297910907991420928-SIjE?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch video</a>
+      </div>
+    
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Retail Sales</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          Sales performance by customer profile and product category using Excel.
+        </p>
+        <p>
+          This project uses a Retail Sales dataset from Quantum Analytics NG to analyze how revenue is distributed across age groups, gender, and product categories. 
+          The Excel dashboard brings together sales totals, average values, and product‑level metrics into a single interactive view using slicers and pivot tables.
+        </p>
+        <p>
+          The goal is to show how Excel can be used to build a lightweight but effective reporting solution that answers key questions about who is buying, what they buy, and how sales evolve over time.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Microsoft Excel</span>
+          <span class="pill">Pivot Tables</span>
+          <span class="pill">Retail Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Retail Sales dashboard (Excel)</div>
+        <img src="assets/images/retail-sales.jpeg" alt="Retail Sales Excel Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Transaction‑level sales data prepared for Excel reporting.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Retail Sales dataset with customer, product, and transaction details.</li>
+          <li><strong>Grain:</strong> Individual sales records including age category, gender, product category, price per unit, quantity, and date.</li>
+          <li><strong>Preparation:</strong> Cleaned duplicates, standardized category labels, created age group bands, and ensured date fields were properly recognized for time‑based analysis.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Data Cleaning</span>
+          <span class="pill">Calculated Columns</span>
+          <span class="pill">Pivot Charts</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Interactive Slicers</h2>
+        <p class="section-subtitle">
+          Filter the dashboard by time and product mix.
+        </p>
+        <p>
+          The Excel dashboard uses slicers connected to pivot tables to make exploration easy:
+        </p>
+        <ul>
+          <li><strong>Year:</strong> Compare sales performance across years and understand growth over time.</li>
+          <li><strong>Product Category:</strong> Focus on specific product groups to see how they contribute to total sales.</li>
+        </ul>
+        <p>
+          Combining these slicers lets users quickly answer questions such as “Which categories grew the most this year?” or 
+          “How did specific categories perform in earlier periods?”.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Core metrics that summarize quantity, sales value, and customer coverage.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total Sales</div>
+        <div class="kpi-desc">Overall revenue generated from all retail transactions.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Quantity</div>
+        <div class="kpi-desc">Total units sold across all products and categories.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Products</div>
+        <div class="kpi-desc">Number of distinct products included in the dataset.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Age Categories</div>
+        <div class="kpi-desc">Coverage of different age groups involved in the sales.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Gender Mix</div>
+        <div class="kpi-desc">Sales split between different genders, useful for targeting.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Product Categories</div>
+        <div class="kpi-desc">Number of product categories represented in the analysis.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      In Excel, these KPIs are implemented as pivot table aggregates and displayed as summary cards or highlighted cells at the top of the dashboard.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Customer & Sales Insights</h2>
+        <p class="section-subtitle">
+          How different customers contribute to sales.
+        </p>
+        <ul>
+          <li><strong>Total sales by age category and gender:</strong> Shows which age and gender groups generate the most revenue, supporting targeted marketing and product decisions.</li>
+          <li><strong>Average sales by age category and gender:</strong> Highlights typical spend per group to understand value per customer segment.</li>
+          <li><strong>Total sales over the years:</strong> Tracks overall growth in sales and helps identify periods of acceleration or slowdown.</li>
+        </ul>
+        <p>
+          These views help clarify which customer segments are most valuable and how their behavior changes over time.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Product & Price Insights</h2>
+        <p class="section-subtitle">
+          What is selling, and at what price points.
+        </p>
+        <ul>
+          <li><strong>Total sales by product category:</strong> Ranks categories by revenue to identify core lines and under‑performers.</li>
+          <li><strong>Price per unit & quantity by product:</strong> Combines price and volume to show which products drive revenue through premium pricing or high volume.</li>
+          <li><strong>Total sales by age and product category:</strong> Connects customer segments with specific product groups to reveal where preferences are strongest.</li>
+        </ul>
+        <p>
+          Together, these insights show where to focus inventory, pricing strategies, and promotional efforts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      How to access the underlying Excel report and related materials.
+    </p>
+    <ul class="links-list">
+      <li>
+       <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/RetailSales_17785814756610/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Retail Sales dataset (training data used to simulate real‑world retail reporting).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        LinkedIn post where you explain the Excel dashboard:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-4th-activity-7297910907991420928-SIjE?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+    
+  </section>
+
+</main>
+
+</body>
+</html>

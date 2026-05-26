@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TATA Online Retail | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --card-bg: #020617;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top banner */
+    .hero {
+      padding: 40px 20px 30px;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at 10% 20%, #1e293b 0, #020617 40%, #000 90%);
+    }
+
+    .hero-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.5fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.8rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 0;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--muted);
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .hero-links a {
+      margin-left: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+
+    /* Navigation */
+    nav {
+      background: #020617;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 20px;
+    }
+
+    nav .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* Main layout */
+    main {
+      max-width: 1000px;
+      margin: 24px auto 40px;
+      padding: 0 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+      color: #e5e7ff;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-soft {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 14px 16px;
+    }
+
+    p { margin-top: 0; }
+
+    ul {
+      margin-top: 6px;
+      padding-left: 18px;
+    }
+
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      padding: 3px 9px;
+      margin: 3px 6px 3px 0;
+      font-size: 0.8rem;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      color: var(--muted);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .kpi {
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.22), rgba(15,23,42,1));
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      padding: 10px 12px;
+      font-size: 0.9rem;
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-value {
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      margin-right: 6px;
+      color: var(--muted);
+    }
+
+    .dashboard-img {
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      display: block;
+      margin-top: 10px;
+    }
+
+    .links-list li {
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); text-align: left; }
+      .hero-side { justify-self: flex-start; text-align: left; }
+      .grid-2 { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">TATA Online Retail – Sales Analytics Dashboard</h1>
+      <p class="hero-sub">
+        Power BI case study exploring online retail performance for TATA across products, countries, and time. 
+        Built to answer practical business questions about what sells, where, and when.
+      </p>
+      <div class="hero-meta">
+        <span class="chip">Domain: Retail & E‑commerce</span>
+        <span class="chip">Tool: Power BI</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">“From raw sales logs to clear KPIs and growth opportunities.”</p>
+      <div class="hero-links">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-2nd-activity-7297903727749816321-5z-h?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch video</a>
+      </div>
+    
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home </a>
+    <a href="projects.html">Projects</a>
+    <span style="color:#4b5563;">TATA Online Retail</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="grid-2" style="margin-bottom:26px;">
+    <div class="card">
+      <h2 class="section-title">Project Overview</h2>
+      <p>
+        The TATA Online Retail dashboard summarizes multi‑year transaction data from Quantum Analytics NG, focusing on how sales behave across products, countries, and time. 
+        The goal is to help stakeholders quickly see top‑selling items, high‑value markets, and demand trends by month and quarter.
+      </p>
+      <p>
+        This project simulates a real retail analytics scenario: from raw order‑level data to a streamlined Power BI model with clear KPIs, reusable visuals, and slicers that support day‑to‑day commercial decisions.
+      </p>
+    </div>
+
+    <div class="card-soft">
+      <h2 class="section-title">Dashboard Preview</h2>
+      <p class="section-subtitle">
+        Core view: performance cards, product and country breakdowns, and time series in one page.
+      </p>
+      <img src="assets/images/Tata%20Online%20Retail.png" alt="TATA Online Retail Power BI Dashboard" class="dashboard-img">
+      <p style="font-size:0.8rem; color:#9ca3af;">
+    
+      </p>
+    </div>
+  </section>
+
+  <!-- DATA & MODEL + SLICERS/KPIs -->
+  <section class="grid-2">
+    <div class="card-soft">
+      <h2 class="section-title">Data & Modeling</h2>
+      <p class="section-subtitle">
+        Raw sales data transformed into a clean model ready for reporting.
+      </p>
+      <ul>
+        <li><strong>Data source:</strong> Quantum Analytics NG – retail transaction data for TATA’s online store.</li>
+        <li><strong>Granularity:</strong> Order‑level records including product details, customer, country, date, and quantity.</li>
+        <li><strong>Transformations:</strong> Cleaned invalid entries, standardized product and country names, derived calendar fields (year, month, quarter), and created a star‑schema style model.</li>
+      </ul>
+      <div class="pill-row">
+        <span class="pill">Power BI</span>
+        <span class="pill">Data Cleaning</span>
+        <span class="pill">Data Modeling</span>
+        <span class="pill">DAX Measures</span>
+      </div>
+    </div>
+
+    <div class="card-soft">
+      <h2 class="section-title">Interactive Slicers & Filters</h2>
+      <p class="section-subtitle">
+        Designed to let non‑technical users explore performance in seconds.
+      </p>
+      <p>The report uses a set of slicers to filter the view:</p>
+      <ul>
+        <li><strong>Year:</strong> Compare performance across years and track growth over time.</li>
+        <li><strong>Month:</strong> Spot seasonality and monthly peaks in demand.</li>
+        <li><strong>Description (Product):</strong> Drill into a specific product’s sales behavior.</li>
+        <li><strong>Country:</strong> Focus on a particular market or compare countries side by side.</li>
+      </ul>
+      <p>
+        These filters make the dashboard flexible enough for management, marketing, and operations teams, while keeping the layout simple and easy to read.
+      </p>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="card" style="margin-top:24px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      High‑level metrics that summarize customer volume, product breadth, demand, and revenue.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total Customers</div>
+        <div class="kpi-value">Distinct customers placing orders across all periods.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Order Count</div>
+        <div class="kpi-value">Number of orders processed in the dataset.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Products</div>
+        <div class="kpi-value">Unique products sold through the online channel.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Quantity</div>
+        <div class="kpi-value">Total units sold across all products and periods.</div>
+      </div>
+      <div class="kpi" style="grid-column: span 2;">
+        <div class="kpi-label">Total Sales</div>
+        <div class="kpi-value">Overall revenue generated from online retail transactions.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:#9ca3af; margin-top:10px;">
+      In your Power BI model, these KPIs are implemented as DAX measures and displayed as card visuals on the main page.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="grid-2" style="margin-top:24px;">
+    <div class="card-soft">
+      <h2 class="section-title">Product & Customer Insights</h2>
+      <p class="section-subtitle">
+        Which products drive value, and who buys them.
+      </p>
+      <ul>
+        <li><strong>Top 5 sales by product:</strong> Identifies the products contributing the highest revenue, helping prioritize inventory and promotions.</li>
+        <li><strong>Top 5 products by customer:</strong> Shows which items are most popular across the customer base, highlighting cross‑selling opportunities.</li>
+        <li><strong>Top 5 products by quantity:</strong> Highlights high‑volume products that may have lower margins but drive traffic and repeat purchases.</li>
+      </ul>
+      <p>
+        Together, these insights help distinguish between revenue‑driving and volume‑driving products and guide assortment decisions.
+      </p>
+    </div>
+
+    <div class="card-soft">
+      <h2 class="section-title">Country & Time Insights</h2>
+      <p class="section-subtitle">
+        Where sales come from and how they evolve.
+      </p>
+      <ul>
+        <li><strong>Total sales by country:</strong> Ranks countries by revenue to highlight key markets and underperforming regions.</li>
+        <li><strong>Total sales by month and quarter:</strong> Reveals seasonal patterns and peak periods to support forecasting and campaign planning.</li>
+        <li><strong>Total sales over the years:</strong> Shows long‑term growth (or decline), making it easy to see the overall trajectory of the online channel.</li>
+      </ul>
+      <p>
+        These views allow business users to quickly answer questions like “Which markets should we focus on?” and “When should we plan major campaigns?”.
+      </p>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES & LINKS -->
+  <section class="card" style="margin-top:24px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      How to explore the project beyond this case study.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Power BI file</span>
+       Link to the <strong>.pbix</strong> file: 
+        <a href="assets/files/Online-Retail.pbix" target="_blank">Download or view PBIX</a>
+      </li>
+           <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/TATAOnlineRetail_17777531793590/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG training dataset (proprietary). 
+        Briefly describe it, but do not share raw data if it’s not publicly available.
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        LinkedIn post where you explain the dashboard:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-2nd-activity-7297903727749816321-5z-h?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+  
+  </section>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Insurance Policies | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #fef3e7;
+      --border: #fed7aa;
+      --accent: #ea580c;
+      --accent-soft: #ffedd5;
+      --text-main: #7c2d12;
+      --text-muted: #9a3412;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #fed7aa, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #f97316;
+      color: #c2410c;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #92400e;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #fef3e7;
+      border: 1px solid #fed7aa;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: var(--text-muted);
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(248, 113, 113, 0.12);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #fed7aa;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #fed7aa;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #fed7aa;
+      margin-right: 6px;
+      color: var(--text-muted);
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Car Insurance Policies – Claims Analytics</h1>
+      <p class="hero-sub">
+        Power BI analysis of car insurance claims data from Quantum Analytics NG, 
+        exploring patterns across vehicles, drivers, education, and coverage zones.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Insurance</span>
+        <span class="chip">Tool: Power BI</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        "Which cars, drivers, and zones generate the highest claims risk?"
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-5th-activity-7297912027270832129-33la?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch video</a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Car Insurance Policies</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          Insurance claims patterns by vehicle, driver demographics, and coverage zones.
+        </p>
+        <p>
+          This Power BI dashboard analyzes car insurance claims data from Quantum Analytics NG to uncover patterns in claim frequency, claim amounts, and risk factors. 
+          The analysis connects vehicle characteristics (make, model, color, year) with driver demographics (education, gender, kids driving) and geographic factors (coverage zone).
+        </p>
+        <p>
+          The goal is to help insurance companies identify high‑risk combinations of cars, drivers, and locations for better underwriting, pricing, and risk management decisions.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Power BI</span>
+          <span class="pill">Insurance Analytics</span>
+          <span class="pill">Risk Analysis</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Insurance claims dashboard (Power BI)</div>
+        <img src="assets/images/Car-Insurance-Policies.png" alt="Car Insurance Policies Power BI Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Policy and claims data transformed for insurance risk analysis.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Car insurance policies and claims dataset.</li>
+          <li><strong>Grain:</strong> Policy‑level records with vehicle details (make, model, year, color), driver info (gender, education, kids driving), household data, and claim history.</li>
+          <li><strong>Transformations:</strong> Standardized vehicle names, created coverage zone groupings, calculated claim frequency rates, and built relationships between policy and claims tables.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Data Modeling</span>
+          <span class="pill">DAX Measures</span>
+          <span class="pill">Risk Scoring</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Interactive Slicers</h2>
+        <p class="section-subtitle">
+          Vehicle and geographic drill‑down capabilities.
+        </p>
+        <p>
+          The dashboard provides comprehensive slicers for detailed analysis:
+        </p>
+        <ul>
+          <li><strong>Car Make:</strong> Compare claim patterns across different manufacturers.</li>
+          <li><strong>Car Model:</strong> Drill into specific models to identify high‑risk vehicles.</li>
+          <li><strong>Car Year:</strong> Analyze how vehicle age correlates with claim frequency.</li>
+          <li><strong>Coverage Zone:</strong> Examine geographic risk patterns and regional differences.</li>
+        </ul>
+        <p>
+          These slicers enable underwriters to quickly isolate combinations of vehicle type, model year, and location to assess risk exposure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Core insurance metrics for claims volume, severity, and policyholder characteristics.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Household Income</div>
+        <div class="kpi-desc">Average income of policyholders filing claims.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Avg Claim Amount</div>
+        <div class="kpi-desc">Average cost per individual claim across selected filters.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Claim Amount</div>
+        <div class="kpi-desc">Total dollars paid out for all claims in the analysis.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Claim Frequency</div>
+        <div class="kpi-desc">Total number of claims filed across all policies.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Kids Driving</div>
+        <div class="kpi-desc">Total number of children listed as drivers on policies.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      These KPIs are implemented as DAX measures and displayed as prominent cards at the top of the Power BI report.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Driver & Vehicle Insights</h2>
+        <p class="section-subtitle">
+          Risk patterns by demographics and vehicle characteristics.
+        </p>
+        <ul>
+          <li><strong>Total kids driving by gender & car use:</strong> Identifies risky combinations of young drivers, gender, and vehicle usage patterns.</li>
+          <li><strong>Total claim frequency by education:</strong> Examines whether driver education level correlates with accident rates.</li>
+          <li><strong>Top car make & model by avg claim amount:</strong> Pinpoints specific vehicle combinations that generate highest repair costs.</li>
+        </ul>
+        <p>
+          These insights help underwriters adjust premiums based on actual risk patterns rather than assumptions.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Claims & Coverage Insights</h2>
+        <p class="section-subtitle">
+          Geographic and vehicle color risk patterns.
+        </p>
+        <ul>
+          <li><strong>Total claim frequency & amount by car color:</strong> Surprising patterns emerge when analyzing claims by vehicle color.</li>
+          <li><strong>Average claim amount by coverage zone:</strong> Reveals which geographic areas have highest claim severity.</li>
+          <li><strong>Total claim amount & frequency by household:</strong> Connects household characteristics with claims behavior.</li>
+        </ul>
+        <p>
+          Coverage zone analysis is particularly valuable for regional pricing and risk pool management.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Access the underlying Power BI report and related materials.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Power BI file</span>
+        Link to the <strong>.pbix</strong> file:
+        <a href="assets/files/Car-Insurance-Policies.pbix" target="_blank">Download or view PBIX</a>
+      </li>
+      <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/CarInsurancePolicies_17777534117330/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Car Insurance dataset (proprietary training data).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        LinkedIn post explaining the insurance claims analysis:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-present-to-you-my-5th-activity-7297912027270832129-33la?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+    
+  </section>
+
+</main>
+
+</body>
+</html>

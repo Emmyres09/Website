@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Debt Analytics | Emmanuel Ipede – Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #fef7f6;
+      --border: #fecaca;
+      --accent: #dc2626;
+      --accent-soft: #fee2e2;
+      --text-main: #991b1b;
+      --text-muted: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #fee2e2, #ffffff);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 16px 28px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      margin: 0 0 8px;
+    }
+
+    .hero-sub {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid #fca5a5;
+      color: #b91c1c;
+    }
+
+    .hero-side {
+      justify-self: end;
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #b91c1c;
+    }
+
+    .hero-actions a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      font-size: 0.8rem;
+      margin-left: 6px;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    nav .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1040px;
+      margin: 28px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .card-soft {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .section-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    p { margin-top: 0; }
+
+    ul { margin-top: 6px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+
+    .pill-row {
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      font-size: 0.8rem;
+      margin: 3px 6px 3px 0;
+      color: var(--text-muted);
+    }
+
+    /* Screenshot area */
+    .screenshot-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 18px;
+      box-shadow: 0 10px 35px rgba(220, 38, 38, 0.15);
+    }
+
+    .screenshot-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .dashboard-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #fecaca;
+    }
+
+    .screenshot-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* KPIs */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 11px;
+      border: 1px solid #fecaca;
+      font-size: 0.88rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-desc {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #fecaca;
+      margin-right: 6px;
+      color: var(--text-muted);
+    }
+
+    .links-list li { margin-bottom: 6px; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-side { justify-self: flex-start; text-align: left; margin-top: 10px; }
+      .layout-two { grid-template-columns: minmax(0, 1fr); }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 540px) {
+      .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title">Global Debt – Sovereign & Sector Analysis</h1>
+      <p class="hero-sub">
+        Power BI macroeconomic debt platform using Quantum Analytics NG data,
+        tracking government, household, and corporate debt across nations.
+      </p>
+      <div class="hero-tags">
+        <span class="chip">Domain: Macroeconomic Analytics</span>
+        <span class="chip">Tool: Power BI</span>
+        <span class="chip">Data Source: Quantum Analytics NG</span>
+      </div>
+    </div>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        "Which countries carry highest debt burdens and where are risks rising fastest?"
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-14th-activity-7297935204176830464-IDaW?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch overview</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">Home</a>
+    <a href="Project.html">Projects</a>
+    <span class="current">Global Debt</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW + DASHBOARD -->
+  <section class="layout-two" style="margin-bottom: 30px;">
+    <div>
+      <div class="card">
+        <h2 class="section-title">Project Overview</h2>
+        <p class="section-subtitle">
+          Comprehensive global debt analysis across all sectors and countries.
+        </p>
+        <p>
+          This Power BI dashboard analyzes global debt data from Quantum Analytics NG, tracking Total Central Government Debt, Total Country coverage, Total General Government Debt, Total Household Debt, Total Non Financial Corporate Debt, and Total Private Debt across global economies.
+        </p>
+        <p>
+          Central banks, sovereign wealth funds, and macroeconomic analysts gain critical insights into debt sustainability, sector vulnerabilities, and cross-country risk comparisons for global portfolio management.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Power BI</span>
+          <span class="pill">Debt Analytics</span>
+          <span class="pill">Macroeconomic</span>
+          <span class="pill">Sovereign Risk</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Global debt dashboard (Power BI)</div>
+        <img src="assets/images/Global%20Debt.png" alt="Global Debt Power BI Dashboard" class="dashboard-img">
+        <p class="screenshot-note">
+      
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA & SLICERS -->
+  <section class="layout-two">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Data & Tools</h2>
+        <p class="section-subtitle">
+          Comprehensive global debt dataset by country and sector.
+        </p>
+        <ul>
+          <li><strong>Data source:</strong> Quantum Analytics NG – Global debt dataset covering central government, general government, household, corporate, and private debt across 190+ countries.</li>
+          <li><strong>Grain:</strong> Country-year records with debt-to-GDP ratios, absolute debt levels, and sector breakdowns standardized for cross-country comparison.</li>
+          <li><strong>Power BI features:</strong> Country slicers, time intelligence, debt composition waterfalls, risk heatmaps, and DAX debt sustainability metrics.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">DAX Financials</span>
+          <span class="pill">Debt-to-GDP</span>
+          <span class="pill">Country Risk</span>
+          <span class="pill">Sector Breakdown</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Country Coverage</h2>
+        <p class="section-subtitle">
+          190+ countries with complete debt sector breakdowns.
+        </p>
+        <p>
+          Comprehensive geographic coverage enables global benchmarking and regional debt analysis across advanced, emerging, and frontier economies.
+        </p>
+        <ul>
+          <li><strong>Total Countries:</strong> Complete coverage of 190+ sovereign nations and territories.</li>
+          <li><strong>Region Analysis:</strong> Advanced economies vs Emerging Markets vs Low Income Countries.</li>
+          <li><strong>Time Coverage:</strong> Multi-year trends showing debt trajectory patterns.</li>
+        </ul>
+        <p>
+          Benchmark Japan (260% Debt/GDP) vs Nigeria (40%) or track China's corporate debt surge.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI section -->
+  <section class="card" style="margin-top: 28px;">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <p class="section-subtitle">
+      Complete global debt composition and risk metrics.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total Central Gov Debt</div>
+        <div class="kpi-desc">Central government debt across all countries.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Countries</div>
+        <div class="kpi-desc"># of countries with complete debt data.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Gen Gov Debt</div>
+        <div class="kpi-desc">General government debt (central + local).</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Household Debt</div>
+        <div class="kpi-desc">Consumer debt across global households.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Non-Fin Corp Debt</div>
+        <div class="kpi-desc">Corporate borrowing excluding financials.</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total Private Debt</div>
+        <div class="kpi-desc">Household + corporate debt aggregate.</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">
+      Power BI DAX measures with debt-to-GDP normalization and cross-country benchmarking.
+    </p>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="layout-two" style="margin-top: 26px;">
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Debt Burden Leaders</h2>
+        <p class="section-subtitle">
+          Countries with highest debt sustainability risks.
+        </p>
+        <ul>
+          <li><strong>Advanced economy risk:</strong> Japan (260%+ Debt/GDP), Italy, Greece debt traps.</li>
+          <li><strong>Emerging market pressure:</strong> China corporate debt explosion, Turkey household leverage.</li>
+          <li><strong>Private debt surges:</strong> Australia, Canada household debt vulnerabilities.</li>
+        </ul>
+        <p>
+          Highest priority countries for debt sustainability monitoring.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-soft">
+        <h2 class="section-title">Deleveraging Opportunities</h2>
+        <p class="section-subtitle">
+          Countries showing debt reduction progress.
+        </p>
+        <ul>
+          <li><strong>Fiscal consolidation:</strong> Nations reducing government debt ratios.</li>
+          <li><strong>Private sector relief:</strong> Countries with falling household/corporate leverage.</li>
+          <li><strong>Emerging market stars:</strong> Commodity exporters deleveraging post-boom.</li>
+        </ul>
+        <p>
+          Benchmark cases for successful debt management strategies.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / LINKS -->
+  <section class="card" style="margin-top: 26px;">
+    <h2 class="section-title">Deliverables & Links</h2>
+    <p class="section-subtitle">
+      Access complete Global Debt analytics platform.
+    </p>
+    <ul class="links-list">
+      <li>
+        <span class="badge">Power BI file</span>
+       Complete <strong>.pbix</strong> global debt dashboard:
+        <a href="assets/files/Global-Debt.pbix" target="_blank">Download Power BI report</a>
+      </li>
+            <li>
+        <span class="badge">Interactive report</span>
+        You can see the tableau report here:
+        <a href="https://public.tableau.com/app/profile/emmanuel.ipede/viz/GlobalDebt_17785810181310/Dashboard1" target="_blank">Open live dashboard</a>
+      </li>
+      <li>
+        <span class="badge">Data source</span>
+        Quantum Analytics NG Global Debt dataset (Central Gov, General Gov, Household, Corporate, Private Debt).
+      </li>
+      <li>
+        <span class="badge">Video walkthrough</span>
+        Debt composition analysis and country risk demo:
+        <a href="https://www.linkedin.com/posts/emmanuel-ipede_hello-everyone-i-share-with-you-my-14th-activity-7297935204176830464-IDaW?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3DE0sBrTJUzyX0QthVP6s0R04EHRdB29Q" target="_blank">Watch on LinkedIn</a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+</body>
+</html>
